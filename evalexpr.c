@@ -52,9 +52,8 @@ static void lexer_next(lexer *L)
         return;
     }
 
-    /* parse number (supports leading minus) */
-    if (isdigit((unsigned char)c) ||
-        (c == '-' && isdigit((unsigned char)L->src[L->pos + 1]))) {
+    /* parse number – only digits; unary minus is handled by the parser */
+    if (isdigit((unsigned char)c)) {
         char *end;
         L->cur.val = strtol(L->src + L->pos, &end, 10);
         L->pos = end - L->src;
